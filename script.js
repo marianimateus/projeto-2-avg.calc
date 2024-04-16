@@ -17,24 +17,28 @@ form.addEventListener('submit', function (e) {
   atualizaMediaFinal();
 });
 
-function adicionaLista() {
+function adicionaLinha() {
     const inputNomeAtividade = document.getElementById('nome-atividade');
     const inputNotaAtividade = document.getElementById('nota-atividade');
 
-     atividades.push(inputNomeAtividade.value);
-     notas.push(parseFloat(inputNotaAtividade.value));
+      if (atividades.includes(inputNomeAtividade.value)){
+        alert(`A atividade: ${inputNomeAtividade} já foi inserida`)
+      } else {
+        atividades.push(inputNomeAtividade.value);
+        notas.push(parseFloat(inputNotaAtividade.value));
+   
+         let linha = '<tr>';
+        linha += `<td>${inputNomeAtividade.value}</td>`;
+        linha += `<td>${inputNotaAtividade.value}</td>`;
+        linha += `<td>${inputNotaAtividade.value >= notaMinima ? imgAprovado : imgReprovado}</td>`;
+        linha += `</tr>`;
+   
+       linhas += linha;
 
-      let linha = '<tr>';
-     linha += `<td>${inputNomeAtividade.value}</td>`;
-     linha += `<td>${inputNotaAtividade.value}</td>`;
-     linha += `<td>${inputNotaAtividade.value >= notaMinima ? imgAprovado : imgReprovado}</td>`;
-     linha += `</tr>`;
-
-    linhas += linha;
+      }
+      inputNomeAtividade.value = '';
+      inputNotaAtividade.value = '';
   }
-
-  inputNomeAtividade.value = '';
-  inputNotaAtividade.value = '';
 
 
 function atualizaTabela() {
@@ -52,7 +56,7 @@ function atualizaMediaFinal() {
 function calculaMediaFinal() {
     let somaDasNotas = 0;
 
-    for (let i = 0; 1 < notas.length; 1++){
+    for (let i = 0; i < notas.length; i++){
         somaDasNotas += notas[i];
     }
 
